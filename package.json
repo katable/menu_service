@@ -1,0 +1,32 @@
+{
+  "name": "OpenTable_Menu",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "author": "Tony Wu",
+  "license": "Unlicensed",
+  "engines": {
+    "node": ">=6.13.0"
+  },
+  "scripts": {
+    "start": "nodemon ./server/index.js",
+    "dev:react": "webpack -d --watch"
+  },
+  "dependencies": {
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.4",
+    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor.git",
+    "express": "^4.16.4",
+    "faker": "^4.1.0",
+    "mongoose": "^5.3.7",
+    "nodemon": "^1.18.5",
+    "webpack": "^4.23.1",
+    "webpack-cli": "^3.1.2"
+  }
+}
