@@ -1,7 +1,7 @@
 const db = require('./index.js');
 const Menu = require('./Menu.js');
 const faker = require('faker');
-var generateDishName = function() {
+var generateDishNameAndPrice = function() {
   return {
     item: faker.lorem.words() + ' ' + faker.lorem.words(),
     price: '$' + faker.commerce.price().toString()}
@@ -16,23 +16,38 @@ var generateSectionName = function() {
   return faker.helpers.randomize(sections);
 }
 
-
-console.log('random is ',faker.helpers.randomize(a));
-
-var sampleMenu = {
-  resturantID: String,
-  menus:
-  [
-    {
-      menuSeason: faker.helpers.randomize(['Breakfast', 'Lunch', 'Dinner', 'Brunch']),
-      sections: [
-        {
-          sectionType: generateSectionName(),
-          dishes: [
-          generateDishName(),generateDishName(),generateDishName(),generateDishName(),generateDishName(),generateDishName(),generateDishName(),generateDishName(),generateDishName(),generateDishName()
-          ]
-        }
-      ]
-    }
-  ]
+var generateMenu = function(season) {
+  return {
+    menuSeason: season,
+    sections: [
+      {
+        sectionType: generateSectionName(),
+        dishes: [
+        generateDishNameAndPrice(), generateDishNameAndPrice(), generateDishNameAndPrice(),generateDishNameAndPrice(), generateDishNameAndPrice(), generateDishNameAndPrice(),generateDishNameAndPrice(), generateDishNameAndPrice(), generateDishNameAndPrice()
+        ]
+      }
+    ]
+  }
 }
+
+var generateMenusSet = function(resturantID) {
+  return {
+    resturantID: resturantID,
+    menus: [ generateMenu('Dinner'), generateMenu('Lunch'), generateMenu('Valentine\'s Day')]
+  }
+}
+
+var seedSampleMenu = function() {
+  for (var i = 1; i <= 100; i++) {
+    var newMenu = new Menu(generateMenusSet(i));
+    newMenu.save( (err) => {
+      if (err) {
+        console.log('unable to save to DB');
+      } else {
+        console.log('all done');
+      }
+    });
+  }
+}
+
+seedSampleMenu();
