@@ -25,9 +25,9 @@ const generateMenu = (season) => {
   };
 };
 
-const generateMenusSet = (resturantID) => {
+const generateMenusSet = (restaurantId) => {
   return {
-    resturantID: resturantID,
+    restaurantId: restaurantId,
     menus: [ generateMenu('Dinner'), generateMenu('Lunch'), generateMenu('Christmas\'s Eve')]
   };
 };
@@ -47,9 +47,9 @@ const seedSampleMenus = () => {
 
 const dropSomeSampleMenus = () => {
   for (var i = 10; i <= 100; i += 10) {
-    Menu.findOneAndDelete({resturantID: i}, (err) => {
+    Menu.findOneAndDelete({restaurantId: i}, (err) => {
       if (err) {
-        console.log('unable to delete entry');
+        throw err;
       }
     });
   }

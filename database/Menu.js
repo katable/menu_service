@@ -1,9 +1,9 @@
 const db = require('./index.js');
 const mongoose = require('mongoose');
 
-const resturantMenuSchema = new mongoose.Schema({
-  resturantName: String,
-  resturantID: String,
+const restaurantMenuSchema = new mongoose.Schema({
+  restaurantName: String,
+  restaurantId: String,
   menus:
   [
     {
@@ -14,15 +14,18 @@ const resturantMenuSchema = new mongoose.Schema({
           dishes: [
             {
               item: String,
-              price: String
+              price: String,
+              _id: false
             }
-          ]
+          ],
+          _id: false
         }
-      ]
+      ],
+      _id: false
     }
   ]
-});
+}, { versionKey: false });
 
-const RestaurantMenu = mongoose.model('Menu', resturantMenuSchema);
+const RestaurantMenu = mongoose.model('Menu', restaurantMenuSchema);
 
 module.exports = RestaurantMenu;
