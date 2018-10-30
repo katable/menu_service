@@ -8,19 +8,19 @@ const resturantMenuSchema = new mongoose.Schema({
   [
     {
       menuSeason: String,
-			sections: [
-				{
-					sectionType: String,
-					dishes: [
-						{
-							item: String,
-							price: String
-						}
-					]
-				}
-			]
-		}
-	]
+      sections: [
+        {
+          sectionType: String,
+          dishes: [
+            {
+              item: String,
+              price: String
+            }
+          ]
+        }
+      ]
+    }
+  ]
 });
 
 const RestaurantMenu = mongoose.model('Menu', resturantMenuSchema);
