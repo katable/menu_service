@@ -1,38 +1,59 @@
-const db = require('./index.js');
 const Menu = require('./Menu.js');
 const faker = require('faker');
-var generateDishName = function() {
+
+const generateDishNameAndPrice = () => {
   return {
     item: faker.lorem.words() + ' ' + faker.lorem.words(),
-    price: '$' + faker.commerce.price().toString()}
-}
+    price: '$' + faker.commerce.price().toString()
+  };
+};
 
-var generateSectionName = function() {
-  var sections = ['Salads', 'House Specialties', 'Shareables', 'Appetizers',
-  'Starters', 'Sushi', 'Entrees', 'Dessert', 'Pasta', 'Drinks', 
-  'Hot Beverages', 'Soups', 'Tandoori', 'Seafood Entrée', 'Biryani & Rice',
-  'Vegetarian Entrée', 'Breads', 'Pizzas', 'Cheeses', 'Sides', 'Antipasti‎',
-  'Contorni‎', 'Primi‎', 'Secondi‎']
+const generateSectionName = () => {
+  var sections = 
+    ['Salads', 'House Specialties', 'Shareables', 'Appetizers', 'Starters', 'Sushi', 'Entrees', 'Dessert', 'Pasta', 'Drinks', 'Hot Beverages', 'Soups', 'Tandoori', 'Seafood Entrée', 'Biryani & Rice', 'Vegetarian Entrée', 'Breads', 'Pizzas', 'Cheeses', 'Sides', 'Antipasti‎', 'Contorni‎', 'Primi‎', 'Secondi‎'];
   return faker.helpers.randomize(sections);
-}
+};
 
+const generateMenu = (season) => {
+  return {
+    menuSeason: season,
+    sections: [
+      {
+        sectionType: generateSectionName(),
+        dishes: Array(9).fill(null).map(() => generateDishNameAndPrice())
+      }
+    ]
+  };
+};
 
-console.log('random is ',faker.helpers.randomize(a));
+const generateMenusSet = (restaurantId) => {
+  return {
+    restaurantId: restaurantId,
+    menus: [generateMenu('Dinner'), generateMenu('Lunch'), generateMenu('Christmas\'s Eve')]
+  };
+};
 
-var sampleMenu = {
-  resturantID: String,
-  menus:
-  [
-    {
-      menuSeason: faker.helpers.randomize(['Breakfast', 'Lunch', 'Dinner', 'Brunch']),
-      sections: [
-        {
-          sectionType: generateSectionName(),
-          dishes: [
-          generateDishName(),generateDishName(),generateDishName(),generateDishName(),generateDishName(),generateDishName(),generateDishName(),generateDishName(),generateDishName(),generateDishName()
-          ]
-        }
-      ]
-    }
-  ]
-}
+const seedSampleMenus = () => {
+  for (var i = 1; i <= 100; i++) { //for loop is not async
+    var newMenu = new Menu(generateMenusSet(i));
+    newMenu.save((err) => {
+      if (err) {
+        console.log('unable to save to DB');
+      } else {
+        dropSomeSampleMenus();
+      }
+    });
+  }
+};
+
+const dropSomeSampleMenus = () => {
+  for (var i = 10; i <= 100; i += 10) {
+    Menu.findOneAndDelete({restaurantId: i}, (err) => {
+      if (err) {
+        throw err;
+      }
+    });
+  }
+};
+
+seedSampleMenus();

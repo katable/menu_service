@@ -2,15 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 class Menu extends React.Component {
-	constructor() {
-		super();
-	}
+  constructor(props) {
+    super(props);
+  }
 
-	render() {
-		return (
-			<div> hello </div>
-			)
-	}
+  render() {
+    return (
+      <div> hello </div>
+    );
+  }
 }
 
-ReactDOM.render(<App />, document.getElementById('menu'));
+ReactDOM.render(<Menu />, document.getElementById('menu'));
