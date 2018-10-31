@@ -4,7 +4,8 @@ const faker = require('faker');
 const generateDishNameAndPrice = () => {
   return {
     item: faker.lorem.words() + ' ' + faker.lorem.words(),
-    price: '$' + faker.commerce.price().toString()};
+    price: '$' + faker.commerce.price().toString()
+  };
 };
 
 const generateSectionName = () => {
@@ -28,7 +29,7 @@ const generateMenu = (season) => {
 const generateMenusSet = (restaurantId) => {
   return {
     restaurantId: restaurantId,
-    menus: [ generateMenu('Dinner'), generateMenu('Lunch'), generateMenu('Christmas\'s Eve')]
+    menus: [generateMenu('Dinner'), generateMenu('Lunch'), generateMenu('Christmas\'s Eve')]
   };
 };
 
