@@ -16,7 +16,11 @@
     "start": "nodemon ./server/index.js",
     "dev:react": "webpack -d --watch",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "test:jest": "jest"
+=======
+    "db:seed": "node ./database/menuSeeding.js"
+>>>>>>> ef06fb0f174da6966dfbce8f628ea05370e2cca2
 =======
     "db:seed": "node ./database/menuSeeding.js"
 >>>>>>> ef06fb0f174da6966dfbce8f628ea05370e2cca2
