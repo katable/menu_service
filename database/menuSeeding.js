@@ -17,7 +17,7 @@ const generateSectionName = () => {
 const generateSection = () => {
   return {
     sectionType: generateSectionName(),
-    dishes: Array(9).fill(null).map(() => generateDishNameAndPrice())
+    dishes: Array(18).fill(null).map(() => generateDishNameAndPrice())
   };
 };
 
