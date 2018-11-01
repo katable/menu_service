@@ -14,15 +14,17 @@ const generateSectionName = () => {
   return faker.helpers.randomize(sections);
 };
 
+const generateSection = () => {
+  return {
+    sectionType: generateSectionName(),
+    dishes: Array(9).fill(null).map(() => generateDishNameAndPrice())
+  };
+};
+
 const generateMenu = (season) => {
   return {
     menuSeason: season,
-    sections: [
-      {
-        sectionType: generateSectionName(),
-        dishes: Array(9).fill(null).map(() => generateDishNameAndPrice())
-      }
-    ]
+    sections: Array(3).fill(null).map(() => generateSection())
   };
 };
 
@@ -36,11 +38,7 @@ const generateMenusSet = (restaurantId) => {
 const seedSampleMenus = () => {
   for (var i = 1; i <= 100; i++) { //for loop is not async
     var newMenu = new Menu(generateMenusSet(i));
-<<<<<<< HEAD
     newMenu.save((err) => {
-=======
-    newMenu.save( (err) => {
->>>>>>> ef06fb0f174da6966dfbce8f628ea05370e2cca2
       if (err) {
         console.log('unable to save to DB');
       } else {
