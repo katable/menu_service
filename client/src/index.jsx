@@ -34,8 +34,8 @@ class Menu extends React.Component {
     });
     document.getElementById('restaurant-menu').style.height = 'auto';
     document.getElementById('restaurant-menu').style.background = 'black';
-    document.getElementById('restaurant-menu').style.webkitBackgroundClip='';
-    document.getElementById('restaurant-menu').style.webkitTextFillColor='';
+    document.getElementById('restaurant-menu').style.webkitBackgroundClip = '';
+    document.getElementById('restaurant-menu').style.webkitTextFillColor = '';
   }
 
   handleCollapseMenuButtonClick() {
@@ -44,8 +44,8 @@ class Menu extends React.Component {
     });
     document.getElementById('restaurant-menu').style.height = '400px';
     document.getElementById('restaurant-menu').style.background = '-webkit-linear-gradient(black, #d8d9db)';
-    document.getElementById('restaurant-menu').style.webkitBackgroundClip='text';
-    document.getElementById('restaurant-menu').style.webkitTextFillColor='transparent';
+    document.getElementById('restaurant-menu').style.webkitBackgroundClip = 'text';
+    document.getElementById('restaurant-menu').style.webkitTextFillColor = 'transparent';
   }
 
   partialOrFullMenuRendering() {
