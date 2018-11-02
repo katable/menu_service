@@ -17,21 +17,21 @@ const generateSectionName = () => {
 const generateSection = () => {
   return {
     sectionType: generateSectionName(),
-    dishes: Array(18).fill(null).map(() => generateDishNameAndPrice())
+    dishes: Array(25).fill(null).map(() => generateDishNameAndPrice())
   };
 };
 
 const generateMenu = (season) => {
   return {
     menuSeason: season,
-    sections: Array(3).fill(null).map(() => generateSection())
+    sections: Array(4).fill(null).map(() => generateSection())
   };
 };
 
 const generateMenusSet = (restaurantId) => {
   return {
     restaurantId: restaurantId,
-    menus: [generateMenu('Dinner'), generateMenu('Lunch'), generateMenu('Christmas\'s Eve')]
+    menus: [generateMenu('Dinner'), generateMenu('Lunch'), generateMenu('Breakfast'), generateMenu('Christmas\'s Eve')]
   };
 };
 
