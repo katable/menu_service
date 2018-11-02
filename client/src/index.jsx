@@ -26,6 +26,7 @@ class Menu extends React.Component {
     this.setState({
       selectedMenu: sampleData.menus[menuIndex]
     });
+    console.log('menu has been selected')
   }
 
   handleViewFullMenuButtonClick() {
