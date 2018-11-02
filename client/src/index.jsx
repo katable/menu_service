@@ -10,7 +10,7 @@ class Menu extends React.Component {
     super(props);
     this.state = {
       restaurantMenus: sampleData,
-      selectedMenu: sampleData.menus[2]
+      selectedMenu: sampleData.menus[1]
     };
   }
 
@@ -23,7 +23,7 @@ class Menu extends React.Component {
   }
 
   render() {
-    if (this.state.menus === null) {
+    if (this.state.restaurantMenus === null) {
       return (
         <div>
           <span>
@@ -32,10 +32,16 @@ class Menu extends React.Component {
         </div>
       );
     } else {
-      return [
-        <Nav restaurantMenus = {this.collectRestaurantMenuTitles()} />,
-        <MenuItems selectedMenu = {this.state.selectedMenu} />
-      ];
+      return (
+        <div className="menu-component">
+          <Nav restaurantMenus = {this.collectRestaurantMenuTitles()} />
+          <MenuItems selectedMenu = {this.state.selectedMenu} />
+          <div className="viewCollapseMenuButton">
+            <button>View full menu</button>
+            <button>Collapse menu</button>
+          </div>
+        </div>
+      );
     }
   }
 }

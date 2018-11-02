@@ -1,0 +1,69 @@
+
+* {
+  font-family: 'Josefin Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+div {
+  display: block;
+}
+hr { 
+  height: 1px;
+  background-color: #d8d9db;
+  border: none;
+}
+.menu-component {
+  min-width: 500px;
+}
+/* 
+////////////////Nav////////////////
+*/
+.menu-buttons {
+  border-color: #d8d9db;
+  font-size: 14px;
+  padding: 15px;
+  margin: 8px;
+}
+/* 
+////////////////Sections////////////////
+*/
+.section-container {
+  padding: 3px;
+}
+.section-names {
+  color: black;
+  font-size: 14px;
+}
+.section-items {
+  font-size: 14px;
+  font-weight: 500;
+  padding: 0px 0px 25px;
+  overflow: hidden;
+}
+/* 
+////////////////Dishes & Prices////////////////
+*/
+.dish-container {
+  overflow: hidden;
+  padding: 0px 0px 10px 0px
+}
+.leftsideDishes {
+  float: left;
+  width: 50%;
+}
+.rightsideDishes {
+  float: right;
+  width: 50%;
+}
+.dish-names {
+  color: black;
+  width: 75%;
+  float: left;
+}
+.prices {
+  color: black;
+  width: 25%;
+  float: right;
+}
+.viewCollapseMenuButton {
+  text-align: center;
+}
