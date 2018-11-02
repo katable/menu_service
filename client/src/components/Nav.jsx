@@ -1,15 +1,25 @@
 import React from 'react';
 
-const Nav = (props) => (
-  <div id="menu_nav">
-    {
-      props.restaurantMenus.map((menu, index) => (
-        <button id={`menu-button-${index}`} className="menu-buttons" key={index} onClick={ ()=> { props.handleMenuSelection(index);
-        }} href={`#menu-button-${index}`}>{menu}</button>
-      ))
-    }
-    <hr></hr>
-  </div>
-);
+class Nav extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  changeClass(){
+    
+  }
+  render() {
+    return (
+      <div id="menu_nav">
+        {
+          this.props.restaurantMenus.map((menu, index) => (
+            <button id={`menu-button-${index}`} className="menu-buttons" key={index} onClick={ ()=> { this.props.handleMenuSelection(index);
+            }} href={`#menu-button-${index}`}>{menu}</button>
+          ))
+        }
+        <hr></hr>
+      </div>
+    );
+  }
+}
 
 export default Nav;

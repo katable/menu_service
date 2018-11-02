@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import $ from 'jquery';
 import Nav from './components/Nav.jsx';
 import MenuItems from './components/MenuItems.jsx';
 import sampleData from './sampleData.js';
@@ -10,7 +9,8 @@ class Menu extends React.Component {
     super(props);
     this.state = {
       restaurantMenus: sampleData,
-      selectedMenu: sampleData.menus[0]
+      selectedMenu: sampleData.menus[0],
+      toRenderFullMenu: false,
     };
   }
 
@@ -28,6 +28,28 @@ class Menu extends React.Component {
     });
   }
 
+  handleViewFullMenuButtonClick() {
+    this.setState({
+      toRenderFullMenu: true
+    });
+    document.getElementById('restaurant-menu').style.height = 'auto';
+  }
+
+  handleCollapseMenuButtonClick() {
+    this.setState({
+      toRenderFullMenu: false
+    });
+    document.getElementById('restaurant-menu').style.height = '450px';
+  }
+
+  partialOrFullMenuRendering() {
+    if (this.state.toRenderFullMenu === false) {
+      return <button id="viewFullMenuButton" className="viewCollapseMenuButtons" onClick={() => this.handleViewFullMenuButtonClick()}>View full menu</button>;
+    } else {
+      return <button id="collapseMenuButton" className="viewCollapseMenuButtons" onClick={() => this.handleCollapseMenuButtonClick()}>Collapse menu</button>;
+    }
+  }
+
   render() {
     if (this.state.restaurantMenus === null) {
       return (
@@ -40,11 +62,10 @@ class Menu extends React.Component {
     } else {
       return (
         <div className="menu-component">
-          <Nav restaurantMenus = {this.collectRestaurantMenuTitles()}  handleMenuSelection={this.handleMenuSelection.bind(this)}/>
+          <Nav restaurantMenus = {this.collectRestaurantMenuTitles()} handleMenuSelection={this.handleMenuSelection.bind(this)}/>
           <MenuItems selectedMenu = {this.state.selectedMenu}/>
-          <div className="">
-            <button className="viewCollapseMenuButtons">View full menu</button>
-            <button className="viewCollapseMenuButtons">Collapse menu</button>
+          <div className="toRenderFullMenuButtons">
+            {this.partialOrFullMenuRendering()}
           </div>
         </div>
       );

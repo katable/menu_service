@@ -30,6 +30,12 @@ hr {
   border: 2px solid red;
 }
 
+/* Restaurant Menu */
+#restaurant-menu {
+  height: 450px;
+  overflow: hidden;
+}
+
 /* sections */
 .section-container {
   padding: 3px;
