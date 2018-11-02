@@ -14,18 +14,23 @@ hr {
 .menu-component {
   min-width: 500px;
 }
-/* 
-////////////////Nav////////////////
-*/
+
+/* Nav */
 .menu-buttons {
   border-color: #d8d9db;
   font-size: 14px;
   padding: 15px;
   margin: 8px;
+  outline: none;
 }
-/* 
-////////////////Sections////////////////
-*/
+.menu-buttons:hover {
+  border: 2px solid red;
+}
+.clicked-menu {
+  border: 2px solid red;
+}
+
+/* sections */
 .section-container {
   padding: 3px;
 }
@@ -39,9 +44,8 @@ hr {
   padding: 0px 0px 25px;
   overflow: hidden;
 }
-/* 
-////////////////Dishes & Prices////////////////
-*/
+
+/* menu items */
 .dish-container {
   overflow: hidden;
   padding: 0px 0px 10px 0px
@@ -64,6 +68,16 @@ hr {
   width: 25%;
   float: right;
 }
-.viewCollapseMenuButton {
+
+/* View or collapse menu buttons */
+.viewCollapseMenuButtons {
   text-align: center;
+  border-color: #d8d9db;
+  font-size: 16px;
+  padding: 15px 90px;
+  margin: 8px;
+  outline: none;
+}
+.viewCollapseMenuButtons:hover {
+  border: 2px solid red;
 }

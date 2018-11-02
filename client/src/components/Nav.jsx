@@ -4,7 +4,8 @@ const Nav = (props) => (
   <div id="menu_nav">
     {
       props.restaurantMenus.map((menu, index) => (
-        <button id={`menu-button-${index}`} className="menu-buttons" key={index} href="">{menu}</button>
+        <button id={`menu-button-${index}`} className="menu-buttons" key={index} onClick={ ()=> { props.handleMenuSelection(index);
+        }} href={`#menu-button-${index}`}>{menu}</button>
       ))
     }
     <hr></hr>

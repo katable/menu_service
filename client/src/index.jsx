@@ -10,7 +10,7 @@ class Menu extends React.Component {
     super(props);
     this.state = {
       restaurantMenus: sampleData,
-      selectedMenu: sampleData.menus[1]
+      selectedMenu: sampleData.menus[0]
     };
   }
 
@@ -20,6 +20,12 @@ class Menu extends React.Component {
       menuTitles.push(this.state.restaurantMenus.menus[i].menuSeason);
     }
     return menuTitles;
+  }
+
+  handleMenuSelection(menuIndex) {
+    this.setState({
+      selectedMenu: sampleData.menus[menuIndex]
+    });
   }
 
   render() {
@@ -34,11 +40,11 @@ class Menu extends React.Component {
     } else {
       return (
         <div className="menu-component">
-          <Nav restaurantMenus = {this.collectRestaurantMenuTitles()} />
-          <MenuItems selectedMenu = {this.state.selectedMenu} />
-          <div className="viewCollapseMenuButton">
-            <button>View full menu</button>
-            <button>Collapse menu</button>
+          <Nav restaurantMenus = {this.collectRestaurantMenuTitles()}  handleMenuSelection={this.handleMenuSelection.bind(this)}/>
+          <MenuItems selectedMenu = {this.state.selectedMenu}/>
+          <div className="">
+            <button className="viewCollapseMenuButtons">View full menu</button>
+            <button className="viewCollapseMenuButtons">Collapse menu</button>
           </div>
         </div>
       );
