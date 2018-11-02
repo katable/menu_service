@@ -32,8 +32,11 @@ hr {
 
 /* Restaurant Menu */
 #restaurant-menu {
-  height: 450px;
+  height: 400px;
   overflow: hidden;
+  background: -webkit-linear-gradient(black, #d8d9db);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* sections */
@@ -77,7 +80,6 @@ hr {
 
 /* View or collapse menu buttons */
 .viewCollapseMenuButtons {
-  text-align: center;
   border-color: #d8d9db;
   font-size: 16px;
   padding: 15px 90px;
@@ -86,4 +88,15 @@ hr {
 }
 .viewCollapseMenuButtons:hover {
   border: 2px solid red;
+}
+
+.toRenderFullMenuButtons {
+  text-align: center;
+}
+
+#collapseMenuButton {
+  display: inline-block;
+  position: fixed;
+  bottom: 32px;
+  transform: translate(-50%, -50%);
 }

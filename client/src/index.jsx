@@ -33,13 +33,19 @@ class Menu extends React.Component {
       toRenderFullMenu: true
     });
     document.getElementById('restaurant-menu').style.height = 'auto';
+    document.getElementById('restaurant-menu').style.background = 'black';
+    document.getElementById('restaurant-menu').style.webkitBackgroundClip='';
+    document.getElementById('restaurant-menu').style.webkitTextFillColor='';
   }
 
   handleCollapseMenuButtonClick() {
     this.setState({
       toRenderFullMenu: false
     });
-    document.getElementById('restaurant-menu').style.height = '450px';
+    document.getElementById('restaurant-menu').style.height = '400px';
+    document.getElementById('restaurant-menu').style.background = '-webkit-linear-gradient(black, #d8d9db)';
+    document.getElementById('restaurant-menu').style.webkitBackgroundClip='text';
+    document.getElementById('restaurant-menu').style.webkitTextFillColor='transparent';
   }
 
   partialOrFullMenuRendering() {
@@ -62,7 +68,7 @@ class Menu extends React.Component {
     } else {
       return (
         <div className="menu-component">
-          <Nav restaurantMenus = {this.collectRestaurantMenuTitles()} handleMenuSelection={this.handleMenuSelection.bind(this)}/>
+          <Nav restaurantMenus = {this.collectRestaurantMenuTitles()} handleMenuSelection = {this.handleMenuSelection.bind(this)}/>
           <MenuItems selectedMenu = {this.state.selectedMenu}/>
           <div className="toRenderFullMenuButtons">
             {this.partialOrFullMenuRendering()}
