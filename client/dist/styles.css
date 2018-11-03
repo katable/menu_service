@@ -12,7 +12,8 @@ hr {
   border: none;
 }
 #menu-component {
-  min-width: 500px;
+  width: 700px;
+  /* max-width */
   /* overflow: scroll; */
 }
 

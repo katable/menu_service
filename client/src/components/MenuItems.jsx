@@ -9,7 +9,7 @@ const oddOrEven = (val) => {
 };
 
 const MenuItems = (props) => (
-  <div id="restaurant-menu">
+  <div id="restaurant-menu" style={{background: '-webkit-linear-gradient(black, #d8d9db)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent'}}>
     {props.selectedMenu.sections.map((section, index) => (
       <div className="section-container" key={index}>
         <div className="section-names">
