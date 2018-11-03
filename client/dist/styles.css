@@ -11,8 +11,9 @@ hr {
   background-color: #d8d9db;
   border: none;
 }
-.menu-component {
+#menu-component {
   min-width: 500px;
+  /* overflow: scroll; */
 }
 
 /* Nav */
@@ -31,13 +32,13 @@ hr {
 }
 
 /* Restaurant Menu */
+/* the following renders text darkness in a gradient from top to bottom */
 #restaurant-menu {
   height: 400px;
   overflow: hidden;
-  /* the following renders text darkness in a gradient from top to bottom */
-  background: -webkit-linear-gradient(black, #d8d9db);
+  /* background: -webkit-linear-gradient(black, #d8d9db);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: transparent; */
 }
 
 /* sections */
@@ -100,4 +101,8 @@ hr {
   position: fixed;
   bottom: 32px;
   transform: translate(-50%, -50%);
+}
+
+#renderedMenu {
+  border: 2px solid red;
 }

@@ -6,8 +6,8 @@ const oddOrEven = (val) => {
   } else {
     return 'leftsideDishes';
   }
+};
 
-}
 const MenuItems = (props) => (
   <div id="restaurant-menu">
     {props.selectedMenu.sections.map((section, index) => (
@@ -18,7 +18,7 @@ const MenuItems = (props) => (
         <div className="section-items">
           {
             section.dishes.map((dish, index) => (
-              <div className={`dish-container ${oddOrEven(index)}`} key={index}>
+              <div id={`dish-${index}`} className={`dish-container ${oddOrEven(index)}`} key={index}>
                 <div className="dish-names" >{dish.item}</div>
                 <div className="prices">{dish.price}</div>
               </div>

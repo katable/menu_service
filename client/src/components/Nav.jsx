@@ -10,9 +10,9 @@ class Nav extends React.Component {
       <div id="menu_nav">
         {
           this.props.restaurantMenus.map((menu, index) => (
-            <button id={`menu-button-${index}`} className="menu-buttons" key={index} onClick={()=> {
+            <button id="" className="menu-buttons" key={index} onClick={()=> {
               this.props.handleMenuSelection(index);
-            }} href={`#menu-button-${index}`}>{menu}</button>
+            }} href="">{menu}</button>
           ))
         }
         <hr></hr>

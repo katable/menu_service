@@ -13,5 +13,17 @@
   <link rel="stylesheet" href="styles.css">
 	<div id="menu"></div>
 	<script type="text/javascript" src="main.js"></script>
+  <script>
+    var topYposition = document.getElementById('restaurant-menu').getBoundingClientRect().top;
+    var bottomYposition = document.getElementById('restaurant-menu').getBoundingClientRect().bottom;
+    repositionCollapseMenuButton= () => {
+    if ((document.getElementById('restaurant-menu').getBoundingClientRect().top*-1) > 2100 - bottomYposition) {
+      document.getElementById('collapseMenuButton').style.position = 'relative';
+      document.getElementById('collapseMenuButton').style.bottom = '-32px';
+      document.getElementById('collapseMenuButton').style.transform = 'translate(0%, 0%)';
+    }
+  }
+    document.body.onscroll = () => { repositionCollapseMenuButton(); };
+    </script>
 </body>
 </html>

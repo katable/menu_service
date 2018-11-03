@@ -4,14 +4,24 @@ import Nav from './components/Nav.jsx';
 import MenuItems from './components/MenuItems.jsx';
 import sampleData from './sampleData.js';
 
+
 class Menu extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       restaurantMenus: sampleData,
-      selectedMenu: sampleData.menus[0],
+      selectedMenuIndex: null,
       toRenderFullMenu: false,
     };
+  }
+
+  componentWillMount() {
+    this.setState({
+      selectedMenuIndex: 0
+    });
+  }
+  componentDidMount() {
+    document.getElementsByClassName('menu-buttons')[this.state.selectedMenuIndex].id = 'renderedMenu';
   }
 
   collectRestaurantMenuTitles() {
@@ -24,29 +34,16 @@ class Menu extends React.Component {
 
   handleMenuSelection(menuIndex) {
     this.setState({
-      selectedMenu: sampleData.menus[menuIndex]
+      selectedMenuIndex: menuIndex
     });
-    console.log('menu has been selected')
-  }
 
-  handleViewFullMenuButtonClick() {
-    this.setState({
-      toRenderFullMenu: true
-    });
-    document.getElementById('restaurant-menu').style.height = 'auto';
-    document.getElementById('restaurant-menu').style.background = 'black';
-    document.getElementById('restaurant-menu').style.webkitBackgroundClip = '';
-    document.getElementById('restaurant-menu').style.webkitTextFillColor = '';
-  }
-
-  handleCollapseMenuButtonClick() {
-    this.setState({
-      toRenderFullMenu: false
-    });
-    document.getElementById('restaurant-menu').style.height = '400px';
-    document.getElementById('restaurant-menu').style.background = '-webkit-linear-gradient(black, #d8d9db)';
-    document.getElementById('restaurant-menu').style.webkitBackgroundClip = 'text';
-    document.getElementById('restaurant-menu').style.webkitTextFillColor = 'transparent';
+    for (var i = 0; i < document.getElementsByClassName('menu-buttons').length; i++) {
+      if (menuIndex === i) {
+        document.getElementsByClassName('menu-buttons')[i].id = 'renderedMenu';
+      } else {
+        document.getElementsByClassName('menu-buttons')[i].id = '';
+      }
+    }
   }
 
   partialOrFullMenuRendering() {
@@ -55,6 +52,21 @@ class Menu extends React.Component {
     } else {
       return <button id="collapseMenuButton" className="viewCollapseMenuButtons" onClick={() => this.handleCollapseMenuButtonClick()}>Collapse menu</button>;
     }
+  }
+
+  handleViewFullMenuButtonClick() {
+    this.setState({
+      toRenderFullMenu: true
+    });
+    document.getElementById('restaurant-menu').style.height = 'auto';
+  }
+
+  handleCollapseMenuButtonClick() {
+    this.setState({
+      toRenderFullMenu: false
+    });
+    document.getElementById('restaurant-menu').style.height = '400px';
+    document.getElementById('collapseMenuButton').style.position = 'relative';
   }
 
   render() {
@@ -68,9 +80,9 @@ class Menu extends React.Component {
       );
     } else {
       return (
-        <div className="menu-component">
+        <div id="menu-component">
           <Nav restaurantMenus = {this.collectRestaurantMenuTitles()} handleMenuSelection = {this.handleMenuSelection.bind(this)}/>
-          <MenuItems selectedMenu = {this.state.selectedMenu}/>
+          <MenuItems selectedMenu = {this.state.restaurantMenus.menus[this.state.selectedMenuIndex]}/>
           <div className="toRenderFullMenuButtons">
             {this.partialOrFullMenuRendering()}
           </div>
