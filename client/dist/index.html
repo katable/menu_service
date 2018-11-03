@@ -17,7 +17,7 @@
     var topYposition = document.getElementById('restaurant-menu').getBoundingClientRect().top;
     var bottomYposition = document.getElementById('restaurant-menu').getBoundingClientRect().bottom;
     repositionCollapseMenuButton= () => {
-    if ((document.getElementById('restaurant-menu').getBoundingClientRect().top*-1) > 1850 - bottomYposition) {
+    if ((document.getElementById('restaurant-menu').getBoundingClientRect().top*-1) > 1750 - bottomYposition) {
       document.getElementById('collapseMenuButton').style.position = 'relative';
       document.getElementById('collapseMenuButton').style.bottom = '32px';
       document.getElementById('collapseMenuButton').style.transform = 'translate(0%, 50%)';
