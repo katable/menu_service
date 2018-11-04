@@ -11,46 +11,45 @@ hr {
   background-color: #d8d9db;
   border: none;
 }
-#menu-component {
+#menuComponent {
   width: 700px;
-  /* max-width */
   /* overflow: scroll; */
 }
 
 /* Nav */
-.menu-buttons {
+.menuButtons {
   border-color: #d8d9db;
   font-size: 14px;
   padding: 15px;
   margin: 8px;
   outline: none;
 }
-.menu-buttons:hover {
+.menuButtons:hover {
   border: 2px solid red;
 }
-.clicked-menu {
+.clickedMenu {
   border: 2px solid red;
 }
 
 /* Restaurant Menu */
 /* the following renders text darkness in a gradient from top to bottom */
-#restaurant-menu {
+#restaurantMenu {
   height: 400px;
   overflow: hidden;
-  /* background: -webkit-linear-gradient(black, #d8d9db);
+  background: -webkit-linear-gradient(black, #d8d9db);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent; */
+  -webkit-text-fill-color: transparent;
 }
 
 /* sections */
-.section-container {
+.sectionContainer {
   padding: 3px;
 }
-.section-names {
+.sectionNames {
   color: black;
   font-size: 14px;
 }
-.section-items {
+.sectionItems {
   font-size: 14px;
   font-weight: 500;
   padding: 0px 0px 25px;
@@ -58,7 +57,7 @@ hr {
 }
 
 /* menu items */
-.dish-container {
+.dishContainer {
   overflow: hidden;
   padding: 0px 0px 10px 0px
 }
@@ -70,7 +69,7 @@ hr {
   float: right;
   width: 50%;
 }
-.dish-names {
+.dishNames {
   color: black;
   width: 75%;
   float: left;
@@ -93,18 +92,18 @@ hr {
 .viewCollapseMenuButtons:hover {
   border: 2px solid red;
 }
-
 .toRenderFullMenuButtons {
   text-align: center;
 }
-
 #collapseMenuButton {
-  display: inline-block;
+  display: none;
   position: fixed;
   bottom: 32px;
   transform: translate(-50%, -50%);
 }
-
+#viewFullMenuButton {
+  display: inline-block;
+}
 #renderedMenu {
   border: 2px solid red;
 }

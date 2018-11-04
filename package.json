@@ -15,7 +15,9 @@
     },
     "moduleNameMapper": {
       "^.+\\.(css|scss)$": "identity-obj-proxy"
-    }
+    },
+    "collectCoverage": true,
+    "coverageReporters": ["json", "html"]
   },
   "scripts": {
     "start": "nodemon ./server/index.js",
