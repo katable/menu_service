@@ -9,13 +9,18 @@
     "node": ">=6.13.0"
   },
   "jest": {
-    "verbose": true,
-    "bail": false
+    "transform": {
+      "^.+\\.jsx$": "babel-jest",
+      "^.+\\.js$": "babel-jest"
+    },
+    "moduleNameMapper": {
+      "^.+\\.(css|scss)$": "identity-obj-proxy"
+    }
   },
   "scripts": {
     "start": "nodemon ./server/index.js",
     "dev:react": "webpack -d --watch",
-    "test:jest": "jest",
+    "test": "jest",
     "db:seed": "node ./database/menuSeeding.js"
   },
   "dependencies": {
@@ -28,9 +33,12 @@
     "@babel/core": "^7.1.2",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
+    "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.4",
     "chai": "^4.2.0",
     "css-loader": "^1.0.1",
+    "enzyme": "^3.7.0",
+    "enzyme-adapter-react-16": "^1.6.0",
     "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor.git",
     "express": "^4.16.4",
     "faker": "^4.1.0",

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import Nav from './components/Nav.jsx';
 import MenuItems from './components/MenuItems.jsx';
 import sampleData from './sampleData.js';
-
+import styles from '../dist/styles.css';
 
 class Menu extends React.Component {
   constructor(props) {

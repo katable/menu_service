@@ -8,16 +8,29 @@ module.exports = {
     filename: 'main.js',
     path: DIST_DIR
   },
-  module: {
-    rules: [
-      {
-        test: /\.jsx?/,
-        include: SRC_DIR,
-        loader: 'babel-loader',
-        query: {
-          presets: ['@babel/preset-react', '@babel/preset-env']
-        }
-      }
-    ]
-  }
-};
+  
+module: {
+  rules: [
+    {
+      test: /\.jsx?$/,
+      include: SRC_DIR,
+      exclude: /node_modules/,
+      loader: 'babel-loader',
+      options: {
+        presets: ['@babel/preset-env', '@babel/preset-react'],
+      },
+    },
+    {
+      test: /\.css/,
+      loader: [
+        'style-loader',
+        {
+          loader: 'css-loader',
+          options: {
+            modules: true,
+          },
+        },
+      ],
+    },
+  ],
+}
