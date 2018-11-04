@@ -20,7 +20,7 @@ class Menu extends React.Component {
     });
   }
   componentDidMount() {
-    document.getElementsByClassName(styles.menuButtons)[this.state.selectedMenuIndex].id = 'renderedMenu';
+    document.getElementsByClassName(styles.menuButtons)[this.state.selectedMenuIndex].id = styles.renderedMenu;
   }
 
   collectRestaurantMenuTitles() {
