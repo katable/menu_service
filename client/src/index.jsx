@@ -85,7 +85,8 @@ class Menu extends React.Component {
   }
 
   repositionCollapseMenuButton() {
-    if ((document.getElementById(styles.collapseMenuButton).getBoundingClientRect().bottom >= document.getElementById('theLastDish').getBoundingClientRect().top) || (document.getElementById(styles.collapseMenuButton).getBoundingClientRect().top === document.getElementById('menu').getBoundingClientRect().top)) {
+    // once incorporated with other components, consider comparing button position vs. bottom of component instead of the last item on the menu. Also need to refactor MenuItems.jsx if decision is to change.
+    if ((document.getElementById(styles.collapseMenuButton).getBoundingClientRect().bottom >= document.getElementById(styles.theLastDish).getBoundingClientRect().top) || (document.getElementById(styles.collapseMenuButton).getBoundingClientRect().top <= document.getElementById(styles.menuComponent).getBoundingClientRect().top)) {
       document.getElementById(styles.collapseMenuButton).style.position = 'relative';
       document.getElementById(styles.collapseMenuButton).style.bottom = '32px';
       document.getElementById(styles.collapseMenuButton).style.transform = 'translate(0%, 50%)';
@@ -106,7 +107,7 @@ class Menu extends React.Component {
     } else {
       return (
         <div id={styles.menuComponent}>
-          <h2 id='menuComponentTitle'>Menu</h2>
+          <h2 id={styles.menuComponentTitle}>Menu</h2>
           <hr></hr>
           <Nav restaurantMenus = {this.collectRestaurantMenuTitles()} handleMenuSelection = {this.handleMenuSelection.bind(this)}/>
           <MenuItems selectedMenu = {this.state.restaurantMenus.menus[this.state.selectedMenuIndex]}/>

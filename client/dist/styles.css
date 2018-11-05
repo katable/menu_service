@@ -15,6 +15,9 @@ hr {
   width: 700px;
   /* overflow: scroll; */
 }
+#menuComponentTitle {
+  
+}
 
 /* Nav */
 .menuButtons {
@@ -79,7 +82,9 @@ hr {
   width: 25%;
   float: right;
 }
+#theLastDish {
 
+}
 /* View or collapse menu buttons */
 .viewCollapseMenuButtons {
   border-color: #d8d9db;

@@ -21,7 +21,7 @@ const MenuItems = (props) => (
             section.dishes.map((dish, index) => {
               if ((dish === section.dishes[section.dishes.length - 1]) && (sectionIndex === props.selectedMenu.sections.length - 1)) {
                 return (
-                  <div id='theLastDish' className={`${styles.dishContainer} ${oddOrEven(index)}`} key={index}>
+                  <div id={styles.theLastDish} className={`${styles.dishContainer} ${oddOrEven(index)}`} key={index}>
                     <div className={styles.dishNames}>{dish.item}</div>
                     <div className={styles.prices}>{dish.price}</div>
                   </div>
