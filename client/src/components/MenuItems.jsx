@@ -1,28 +1,40 @@
 import React from 'react';
+import styles from '../../dist/styles.css';
 
 const oddOrEven = (val) => {
   if (val % 2 === 0) {
-    return 'leftsideDishes';
+    return styles.leftsideDishes;
   } else {
-    return 'leftsideDishes';
+    return styles.rightsideDishes;
   }
 };
 
 const MenuItems = (props) => (
-  <div id="restaurant-menu" style={{background: '-webkit-linear-gradient(black, #d8d9db)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent'}}>
-    {props.selectedMenu.sections.map((section, index) => (
-      <div className="section-container" key={index}>
-        <div className="section-names">
+  <div id={styles.restaurantMenu}>
+    {props.selectedMenu.sections.map((section, sectionIndex) => (
+      <div className={styles.sectionContainer} key={sectionIndex}>
+        <div className={styles.sectionNames}>
           <h3>{section.sectionType}</h3>
         </div>
-        <div className="section-items">
+        <div className={styles.sectionItems}>
           {
-            section.dishes.map((dish, index) => (
-              <div id={`dish-${index}`} className={`dish-container ${oddOrEven(index)}`} key={index}>
-                <div className="dish-names" >{dish.item}</div>
-                <div className="prices">{dish.price}</div>
-              </div>
-            ))
+            section.dishes.map((dish, index) => {
+              if ((dish === section.dishes[section.dishes.length - 1]) && (sectionIndex === props.selectedMenu.sections.length - 1)) {
+                return (
+                  <div id={styles.theLastDish} className={`${styles.dishContainer} ${oddOrEven(index)}`} key={index}>
+                    <div className={styles.dishNames}>{dish.item}</div>
+                    <div className={styles.prices}>{dish.price}</div>
+                  </div>
+                );
+              }
+              return (
+                <div className={`${styles.dishContainer} ${oddOrEven(index)}`} key={index}>
+                  <div className={styles.dishNames}>{dish.item}</div>
+                  <div className={styles.prices}>{dish.price}</div>
+                </div>
+              );
+            }
+            )
           }
         </div>
         <hr></hr>

@@ -8,22 +8,7 @@
 	<title>Menu</title>
 </head>
 <body>
-  <h2>Menu</h2>
-  <hr></hr>
-  <link rel="stylesheet" href="styles.css">
-	<div id="menu"></div>
+  <div id="menu"></div>
 	<script type="text/javascript" src="main.js"></script>
-  <script>
-    var topYposition = document.getElementById('restaurant-menu').getBoundingClientRect().top;
-    var bottomYposition = document.getElementById('restaurant-menu').getBoundingClientRect().bottom;
-    repositionCollapseMenuButton= () => {
-    if ((document.getElementById('restaurant-menu').getBoundingClientRect().top*-1) > 1750 - bottomYposition) {
-      document.getElementById('collapseMenuButton').style.position = 'relative';
-      document.getElementById('collapseMenuButton').style.bottom = '32px';
-      document.getElementById('collapseMenuButton').style.transform = 'translate(0%, 50%)';
-    }
-  }
-    document.body.onscroll = () => {repositionCollapseMenuButton()};
-    </script>
 </body>
 </html>

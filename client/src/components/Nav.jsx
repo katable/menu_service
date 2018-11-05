@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from '../../dist/styles.css';
 
 class Nav extends React.Component {
   constructor(props) {
@@ -7,10 +8,10 @@ class Nav extends React.Component {
 
   render() {
     return (
-      <div id="menu_nav">
+      <div id={styles.menu_nav}>
         {
           this.props.restaurantMenus.map((menu, index) => (
-            <button id="" className="menu-buttons" key={index} onClick={()=> {
+            <button id="" className={styles.menuButtons} key={index} onClick={()=> {
               this.props.handleMenuSelection(index);
             }} href="">{menu}</button>
           ))

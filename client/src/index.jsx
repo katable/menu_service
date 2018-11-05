@@ -19,8 +19,11 @@ class Menu extends React.Component {
       selectedMenuIndex: 0
     });
   }
+  
   componentDidMount() {
-    document.getElementsByClassName('menu-buttons')[this.state.selectedMenuIndex].id = 'renderedMenu';
+    if (this.state.restaurantMenus !== null) {
+      document.getElementsByClassName(styles.menuButtons)[this.state.selectedMenuIndex].id = styles.renderedMenu;
+    }
   }
 
   collectRestaurantMenuTitles() {
@@ -31,70 +34,80 @@ class Menu extends React.Component {
     return menuTitles;
   }
 
+  removeTextColorGradient() {
+    var $restaurantMenuStyle = document.getElementById(styles.restaurantMenu).style;
+    $restaurantMenuStyle.background = 'none';
+    $restaurantMenuStyle.WebkitBackgroundClip = 'none';
+    $restaurantMenuStyle.WebkitTextFillColor = 'black';
+  }
+
+  applyTextColorGradient() {
+    var $restaurantMenuStyle = document.getElementById(styles.restaurantMenu).style;
+    $restaurantMenuStyle.background = '-webkit-linear-gradient(black, #d8d9db)';
+    $restaurantMenuStyle.WebkitBackgroundClip = 'text';
+    $restaurantMenuStyle.WebkitTextFillColor = 'transparent';
+  }
+
   handleMenuSelection(menuIndex) {
     this.setState({
       selectedMenuIndex: menuIndex
     });
-
-    for (var i = 0; i < document.getElementsByClassName('menu-buttons').length; i++) {
+    var $menuButtons = document.getElementsByClassName(styles.menuButtons);
+    for (var i = 0; i < $menuButtons.length; i++) {
       if (menuIndex === i) {
-        document.getElementsByClassName('menu-buttons')[i].id = 'renderedMenu';
+        $menuButtons[i].id = styles.renderedMenu;
       } else {
-        document.getElementsByClassName('menu-buttons')[i].id = '';
+        $menuButtons[i].id = '';
       }
     }
-
-    // the following lines fixes bug where new menu isn't visually rendered (even though html is updated) when selected (by momentarily undoing the top to bottom text transparency)
-    document.getElementById('restaurant-menu').style.background = 'none';
-    document.getElementById('restaurant-menu').style.WebkitBackgroundClip = 'none';
-    document.getElementById('restaurant-menu').style.WebkitTextFillColor = 'black';
-    // reapplies top to bottom text gradient if menu is collapsed.
-    if (document.getElementById('collapseMenuButton').style.display === 'none') {
-      document.getElementById('restaurant-menu').style.background = '-webkit-linear-gradient(black, #d8d9db)';
-      document.getElementById('restaurant-menu').style.WebkitBackgroundClip = 'text';
-      document.getElementById('restaurant-menu').style.WebkitTextFillColor = 'transparent';
+    this.removeTextColorGradient();
+    if ((document.getElementById(styles.collapseMenuButton).style.display === ('none')) ||
+    (document.getElementById(styles.collapseMenuButton).style.display === (''))) {
+      this.applyTextColorGradient();
     } else {
-      document.getElementById('restaurant-menu').style.background = 'none';
-      document.getElementById('restaurant-menu').style.WebkitBackgroundClip = 'none';
-      document.getElementById('restaurant-menu').style.WebkitTextFillColor = 'black';
-    }
-  }
-
-  partialOrFullMenuRendering() {
-    if (this.state.toRenderFullMenu === false) {
-      return <button id="viewFullMenuButton" className="viewCollapseMenuButtons" onClick={() => this.handleViewFullMenuButtonClick()}>View full menu</button>;
-    } else {
-      return <button id="collapseMenuButton" className="viewCollapseMenuButtons" onClick={() => this.handleCollapseMenuButtonClick()}>Collapse menu</button>;
+      this.removeTextColorGradient();
     }
   }
 
   handleViewFullMenuButtonClick() {
-    document.getElementById('restaurant-menu').style.height = 'auto';
-    document.getElementById('restaurant-menu').style.background = 'none';
-    document.getElementById('restaurant-menu').style.WebkitBackgroundClip = 'none';
-    document.getElementById('restaurant-menu').style.WebkitTextFillColor = 'black';
-
-    document.getElementById('collapseMenuButton').style.display = 'inline-block';
-    document.getElementById('viewFullMenuButton').style.display = 'none';
-    
+    var $restaurantMenuStyle = document.getElementById(styles.restaurantMenu).style;
+    $restaurantMenuStyle.height = 'auto';
+    this.removeTextColorGradient();
+    document.getElementById(styles.collapseMenuButton).style.display = 'inline-block';
+    document.getElementById(styles.viewFullMenuButton).style.display = 'none';
+    var repositionCollapseMenuButton = this.repositionCollapseMenuButton.bind(this);
+    document.body.onscroll = () => repositionCollapseMenuButton();
   }
 
   handleCollapseMenuButtonClick() {
-    document.getElementById('restaurant-menu').style.height = '400px';
-    document.getElementById('restaurant-menu').style.background = '-webkit-linear-gradient(black, #d8d9db)';
-    document.getElementById('restaurant-menu').style.WebkitBackgroundClip = 'text';
-    document.getElementById('restaurant-menu').style.WebkitTextFillColor = 'transparent';
+    var $restaurantMenuStyle = document.getElementById(styles.restaurantMenu).style;
+    var $viewFullMenuButtonStyle = document.getElementById(styles.viewFullMenuButton).style;
+    var $collapseMenuButtonStyle = document.getElementById(styles.collapseMenuButton).style;
+    $restaurantMenuStyle.height = '400px';
+    this.applyTextColorGradient();
+    $viewFullMenuButtonStyle.display = 'inline-block';
+    $collapseMenuButtonStyle.position = 'fixed';
+    $collapseMenuButtonStyle.display = 'none';
+    $collapseMenuButtonStyle.transform = 'translate(-50%, -50%)';
+    document.body.onscroll = '';
+  }
 
-    document.getElementById('viewFullMenuButton').style.display = 'inline-block';
-    document.getElementById('collapseMenuButton').style.display = 'none';
-    document.getElementById('collapseMenuButton').style.position = 'fixed';
-    document.getElementById('collapseMenuButton').style.transform = 'translate(-50%, -50%)';
+  repositionCollapseMenuButton() {
+    var $collapseMenuButtonStyle = document.getElementById(styles.collapseMenuButton).style;
+    // once incorporated with other components, consider comparing button position vs. bottom of component instead of the last item on the menu. Also need to refactor MenuItems.jsx if decision is to change.
+    if ((document.getElementById(styles.collapseMenuButton).getBoundingClientRect().bottom >= document.getElementById(styles.theLastDish).getBoundingClientRect().top) || (document.getElementById(styles.collapseMenuButton).getBoundingClientRect().top <= document.getElementById(styles.menuComponent).getBoundingClientRect().top)) {
+      $collapseMenuButtonStyle.position = 'relative';
+      $collapseMenuButtonStyle.bottom = '32px';
+      $collapseMenuButtonStyle.transform = 'translate(0%, 50%)';
+    }
   }
 
   render() {
     if (this.state.restaurantMenus === null) {
       return (
         <div>
+          <h2>Menu</h2>
+          <hr></hr>
           <span>
             At present, we do not have menu information for this restaurant. Please see their website or wait to visit the restaurant to learn more.
           </span>
@@ -102,16 +115,19 @@ class Menu extends React.Component {
       );
     } else {
       return (
-        <div id="menu-component">
+        <div id={styles.menuComponent}>
+          <h2 id={styles.menuComponentTitle}>Menu</h2>
+          <hr></hr>
           <Nav restaurantMenus = {this.collectRestaurantMenuTitles()} handleMenuSelection = {this.handleMenuSelection.bind(this)}/>
           <MenuItems selectedMenu = {this.state.restaurantMenus.menus[this.state.selectedMenuIndex]}/>
-          <div className="toRenderFullMenuButtons">
-            <button id="viewFullMenuButton" className="viewCollapseMenuButtons" onClick={() => this.handleViewFullMenuButtonClick()}>View full menu</button>
-            <button id="collapseMenuButton" style={{display: 'none'}} className="viewCollapseMenuButtons" onClick={() => this.handleCollapseMenuButtonClick()}>Collapse menu</button>
+          <div className={styles.toRenderFullMenuButtons}>
+            <button id={styles.viewFullMenuButton} className={styles.viewCollapseMenuButtons} onClick={() => this.handleViewFullMenuButtonClick()}>View full menu</button>
+            <button id={styles.collapseMenuButton} className={styles.viewCollapseMenuButtons} onClick={() => this.handleCollapseMenuButtonClick()}>Collapse menu</button>
           </div>
         </div>
       );
     }
   }
 }
+
 ReactDOM.render(<Menu />, document.getElementById('menu'));
