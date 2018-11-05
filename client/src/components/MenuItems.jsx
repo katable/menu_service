@@ -5,7 +5,7 @@ const oddOrEven = (val) => {
   if (val % 2 === 0) {
     return styles.leftsideDishes;
   } else {
-    return styles.leftsideDishes;
+    return styles.rightsideDishes;
   }
 };
 

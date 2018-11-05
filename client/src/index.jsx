@@ -19,6 +19,7 @@ class Menu extends React.Component {
       selectedMenuIndex: 0
     });
   }
+  
   componentDidMount() {
     if (this.state.restaurantMenus !== null) {
       document.getElementsByClassName(styles.menuButtons)[this.state.selectedMenuIndex].id = styles.renderedMenu;
@@ -33,39 +34,45 @@ class Menu extends React.Component {
     return menuTitles;
   }
 
+  removeTextColorGradient() {
+    var $restaurantMenuStyle = document.getElementById(styles.restaurantMenu).style;
+    $restaurantMenuStyle.background = 'none';
+    $restaurantMenuStyle.WebkitBackgroundClip = 'none';
+    $restaurantMenuStyle.WebkitTextFillColor = 'black';
+  }
+
+  applyTextColorGradient() {
+    var $restaurantMenuStyle = document.getElementById(styles.restaurantMenu).style;
+    $restaurantMenuStyle.background = '-webkit-linear-gradient(black, #d8d9db)';
+    $restaurantMenuStyle.WebkitBackgroundClip = 'text';
+    $restaurantMenuStyle.WebkitTextFillColor = 'transparent';
+  }
+
   handleMenuSelection(menuIndex) {
     this.setState({
       selectedMenuIndex: menuIndex
     });
-    for (var i = 0; i < document.getElementsByClassName(styles.menuButtons).length; i++) {
+    var $menuButtons = document.getElementsByClassName(styles.menuButtons);
+    for (var i = 0; i < $menuButtons.length; i++) {
       if (menuIndex === i) {
-        document.getElementsByClassName(styles.menuButtons)[i].id = styles.renderedMenu;
+        $menuButtons[i].id = styles.renderedMenu;
       } else {
-        document.getElementsByClassName(styles.menuButtons)[i].id = '';
+        $menuButtons[i].id = '';
       }
     }
-    // the following lines fixes bug where new menu isn't visually rendered (even though html is updated) when selected (by momentarily undoing the top to bottom text transparency)
-    document.getElementById(styles.restaurantMenu).style.background = 'none';
-    document.getElementById(styles.restaurantMenu).style.WebkitBackgroundClip = 'none';
-    document.getElementById(styles.restaurantMenu).style.WebkitTextFillColor = 'black';
-    // reapplies top to bottom text gradient if menu is collapsed.
+    this.removeTextColorGradient();
     if ((document.getElementById(styles.collapseMenuButton).style.display === ('none')) ||
     (document.getElementById(styles.collapseMenuButton).style.display === (''))) {
-      document.getElementById(styles.restaurantMenu).style.background = '-webkit-linear-gradient(black, #d8d9db)';
-      document.getElementById(styles.restaurantMenu).style.WebkitBackgroundClip = 'text';
-      document.getElementById(styles.restaurantMenu).style.WebkitTextFillColor = 'transparent';
+      this.applyTextColorGradient();
     } else {
-      document.getElementById(styles.restaurantMenu).style.background = 'none';
-      document.getElementById(styles.restaurantMenu).style.WebkitBackgroundClip = 'none';
-      document.getElementById(styles.restaurantMenu).style.WebkitTextFillColor = 'black';
+      this.removeTextColorGradient();
     }
   }
 
   handleViewFullMenuButtonClick() {
-    document.getElementById(styles.restaurantMenu).style.height = 'auto';
-    document.getElementById(styles.restaurantMenu).style.background = 'none';
-    document.getElementById(styles.restaurantMenu).style.WebkitBackgroundClip = 'none';
-    document.getElementById(styles.restaurantMenu).style.WebkitTextFillColor = 'black';
+    var $restaurantMenuStyle = document.getElementById(styles.restaurantMenu).style;
+    $restaurantMenuStyle.height = 'auto';
+    this.removeTextColorGradient();
     document.getElementById(styles.collapseMenuButton).style.display = 'inline-block';
     document.getElementById(styles.viewFullMenuButton).style.display = 'none';
     var repositionCollapseMenuButton = this.repositionCollapseMenuButton.bind(this);
@@ -73,23 +80,25 @@ class Menu extends React.Component {
   }
 
   handleCollapseMenuButtonClick() {
-    document.getElementById(styles.restaurantMenu).style.height = '400px';
-    document.getElementById(styles.restaurantMenu).style.background = '-webkit-linear-gradient(black, #d8d9db)';
-    document.getElementById(styles.restaurantMenu).style.WebkitBackgroundClip = 'text';
-    document.getElementById(styles.restaurantMenu).style.WebkitTextFillColor = 'transparent';
-    document.getElementById(styles.viewFullMenuButton).style.display = 'inline-block';
-    document.getElementById(styles.collapseMenuButton).style.position = 'fixed';
-    document.getElementById(styles.collapseMenuButton).style.display = 'none';
-    document.getElementById(styles.collapseMenuButton).style.transform = 'translate(-50%, -50%)';
+    var $restaurantMenuStyle = document.getElementById(styles.restaurantMenu).style;
+    var $viewFullMenuButtonStyle = document.getElementById(styles.viewFullMenuButton).style;
+    var $collapseMenuButtonStyle = document.getElementById(styles.collapseMenuButton).style;
+    $restaurantMenuStyle.height = '400px';
+    this.applyTextColorGradient();
+    $viewFullMenuButtonStyle.display = 'inline-block';
+    $collapseMenuButtonStyle.position = 'fixed';
+    $collapseMenuButtonStyle.display = 'none';
+    $collapseMenuButtonStyle.transform = 'translate(-50%, -50%)';
     document.body.onscroll = '';
   }
 
   repositionCollapseMenuButton() {
+    var $collapseMenuButtonStyle = document.getElementById(styles.collapseMenuButton).style;
     // once incorporated with other components, consider comparing button position vs. bottom of component instead of the last item on the menu. Also need to refactor MenuItems.jsx if decision is to change.
     if ((document.getElementById(styles.collapseMenuButton).getBoundingClientRect().bottom >= document.getElementById(styles.theLastDish).getBoundingClientRect().top) || (document.getElementById(styles.collapseMenuButton).getBoundingClientRect().top <= document.getElementById(styles.menuComponent).getBoundingClientRect().top)) {
-      document.getElementById(styles.collapseMenuButton).style.position = 'relative';
-      document.getElementById(styles.collapseMenuButton).style.bottom = '32px';
-      document.getElementById(styles.collapseMenuButton).style.transform = 'translate(0%, 50%)';
+      $collapseMenuButtonStyle.position = 'relative';
+      $collapseMenuButtonStyle.bottom = '32px';
+      $collapseMenuButtonStyle.transform = 'translate(0%, 50%)';
     }
   }
 
