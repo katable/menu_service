@@ -20,7 +20,9 @@ class Menu extends React.Component {
     });
   }
   componentDidMount() {
-    document.getElementsByClassName(styles.menuButtons)[this.state.selectedMenuIndex].id = styles.renderedMenu;
+    if (this.state.restaurantMenus !== null) {
+      document.getElementsByClassName(styles.menuButtons)[this.state.selectedMenuIndex].id = styles.renderedMenu;
+    }
   }
 
   collectRestaurantMenuTitles() {
@@ -64,10 +66,8 @@ class Menu extends React.Component {
     document.getElementById(styles.restaurantMenu).style.background = 'none';
     document.getElementById(styles.restaurantMenu).style.WebkitBackgroundClip = 'none';
     document.getElementById(styles.restaurantMenu).style.WebkitTextFillColor = 'black';
-
     document.getElementById(styles.collapseMenuButton).style.display = 'inline-block';
     document.getElementById(styles.viewFullMenuButton).style.display = 'none';
-    
     var repositionCollapseMenuButton = this.repositionCollapseMenuButton.bind(this);
     document.body.onscroll = () => repositionCollapseMenuButton();
   }
@@ -78,12 +78,12 @@ class Menu extends React.Component {
     document.getElementById(styles.restaurantMenu).style.WebkitBackgroundClip = 'text';
     document.getElementById(styles.restaurantMenu).style.WebkitTextFillColor = 'transparent';
     document.getElementById(styles.viewFullMenuButton).style.display = 'inline-block';
-
     document.getElementById(styles.collapseMenuButton).style.position = 'fixed';
     document.getElementById(styles.collapseMenuButton).style.display = 'none';
     document.getElementById(styles.collapseMenuButton).style.transform = 'translate(-50%, -50%)';
+    document.body.onscroll = '';
   }
-  
+
   repositionCollapseMenuButton() {
     if ((document.getElementById(styles.collapseMenuButton).getBoundingClientRect().bottom >= document.getElementById('theLastDish').getBoundingClientRect().top) || (document.getElementById(styles.collapseMenuButton).getBoundingClientRect().top === document.getElementById('menu').getBoundingClientRect().top)) {
       document.getElementById(styles.collapseMenuButton).style.position = 'relative';
@@ -96,7 +96,7 @@ class Menu extends React.Component {
     if (this.state.restaurantMenus === null) {
       return (
         <div>
-          <h2 id='menuComponentTitle'>Menu</h2>
+          <h2>Menu</h2>
           <hr></hr>
           <span>
             At present, we do not have menu information for this restaurant. Please see their website or wait to visit the restaurant to learn more.
