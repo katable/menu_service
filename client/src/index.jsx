@@ -1,15 +1,15 @@
 import React from 'react';
+import $ from 'jquery';
 import ReactDOM from 'react-dom';
 import Nav from './components/Nav.jsx';
 import MenuItems from './components/MenuItems.jsx';
-import sampleData from './sampleData.js';
 import styles from '../dist/styles.css';
 
 class Menu extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      restaurantMenus: sampleData,
+      restaurantMenus: null,
       selectedMenuIndex: null,
     };
   }
@@ -21,9 +21,14 @@ class Menu extends React.Component {
   }
   
   componentDidMount() {
-    if (this.state.restaurantMenus !== null) {
-      document.getElementsByClassName(styles.menuButtons)[this.state.selectedMenuIndex].id = styles.renderedMenu;
-    }
+    $.ajax('/restaurants/22/menu')
+      .done((data) => this.setState({ restaurantMenus: data}))
+      .then( () => {
+        if (this.state.restaurantMenus !== null && this.state.restaurantMenus !== '') {
+          document.getElementsByClassName(styles.menuButtons)[this.state.selectedMenuIndex].id = styles.renderedMenu;
+        }
+      })
+      .catch((err) => { throw err; });
   }
 
   collectRestaurantMenuTitles() {
@@ -103,7 +108,7 @@ class Menu extends React.Component {
   }
 
   render() {
-    if (this.state.restaurantMenus === null) {
+    if (this.state.restaurantMenus === null || this.state.restaurantMenus === '') {
       return (
         <div>
           <h2>Menu</h2>
