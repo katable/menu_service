@@ -5,7 +5,6 @@ class Nav extends React.Component {
   constructor(props) {
     super(props);
   }
-
   render() {
     return (
       <div id={styles.menu_nav}>
@@ -21,5 +20,4 @@ class Nav extends React.Component {
     );
   }
 }
-
 export default Nav;

@@ -9,22 +9,22 @@ class Menu extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      restaurantMenus: null,
-      selectedMenuIndex: null,
+      restaurantMenus: '',
+      selectedMenuIndex: 0,
     };
   }
 
-  componentWillMount() {
-    this.setState({
-      selectedMenuIndex: 0
-    });
-  }
-  
   componentDidMount() {
-    $.ajax('/restaurants/22/menu')
-      .done((data) => this.setState({ restaurantMenus: data}))
+    $.ajax('/restaurants/35/menu')
+      .done((data) => {
+        if ((typeof(data) === 'string') && (data !== '')) {
+          this.setState({restaurantMenus: JSON.parse(data)});
+        } else {
+          this.setState({restaurantMenus: data});
+        }
+      })
       .then( () => {
-        if (this.state.restaurantMenus !== null && this.state.restaurantMenus !== '') {
+        if (this.state.restaurantMenus !== '') {
           document.getElementsByClassName(styles.menuButtons)[this.state.selectedMenuIndex].id = styles.renderedMenu;
         }
       })
@@ -108,17 +108,7 @@ class Menu extends React.Component {
   }
 
   render() {
-    if (this.state.restaurantMenus === null || this.state.restaurantMenus === '') {
-      return (
-        <div>
-          <h2>Menu</h2>
-          <hr></hr>
-          <span>
-            At present, we do not have menu information for this restaurant. Please see their website or wait to visit the restaurant to learn more.
-          </span>
-        </div>
-      );
-    } else {
+    if (this.state.restaurantMenus !== '') {
       return (
         <div id={styles.menuComponent}>
           <h2 id={styles.menuComponentTitle}>Menu</h2>
@@ -127,8 +117,20 @@ class Menu extends React.Component {
           <MenuItems selectedMenu = {this.state.restaurantMenus.menus[this.state.selectedMenuIndex]}/>
           <div className={styles.toRenderFullMenuButtons}>
             <button id={styles.viewFullMenuButton} className={styles.viewCollapseMenuButtons} onClick={() => this.handleViewFullMenuButtonClick()}>View full menu</button>
-            <button id={styles.collapseMenuButton} className={styles.viewCollapseMenuButtons} onClick={() => this.handleCollapseMenuButtonClick()}>Collapse menu</button>
+            <a href={`#${styles.menuComponentTitle}`}>
+              <button id={styles.collapseMenuButton} className={styles.viewCollapseMenuButtons} onClick={() => this.handleCollapseMenuButtonClick()}>Collapse menu</button>
+            </a>
           </div>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <h2>Menu</h2>
+          <hr></hr>
+          <span>
+            At present, we do not have menu information for this restaurant. Please see their website or wait to visit the restaurant to learn more.
+          </span>
         </div>
       );
     }

@@ -12,11 +12,9 @@ app.get('/restaurants/:restaurant_id/menu', (req, res) => {
     if (err) {
       throw err;
     } else {
-      console.log(result);
       res.send(result);
     }
   });
 });
 
 app.listen(PORT, () => console.log('Listening on port ' + PORT));
-
